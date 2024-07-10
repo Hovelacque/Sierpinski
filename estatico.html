@@ -1,0 +1,102 @@
+<html>
+
+<body>
+    <canvas></canvas>
+    <script>
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const width = 720, height = 720;
+        canvas.width = width;
+        canvas.height = height;
+
+        class Triangulo {
+            constructor(x1, y1, x2, y2, x3, y3, cor) {
+                this.x1 = x1;
+                this.x2 = x2;
+                this.x3 = x3;
+                this.y1 = y1;
+                this.y2 = y2;
+                this.y3 = y3;
+                this.cor = cor;
+                this.draw();
+            }
+
+            draw() {
+                ctx.fillStyle = this.cor;
+                ctx.beginPath();
+                ctx.moveTo(this.x1, this.y1);
+                ctx.lineTo(this.x2, this.y2);
+                ctx.lineTo(this.x3, this.y3);
+                ctx.lineTo(this.x1, this.y1);
+                ctx.fill()
+            }
+        }
+
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, width, height);
+
+        //triangulo 1
+        let x1 = width / 2, y1 = 10, x2 = 10, y2 = height - 10, x3 = width - 10, y3 = height - 10;
+        const t1 = new Triangulo(x1, y1, x2, y2, x3, y3, 'white');
+
+        //triangulo 2
+        let mx1x2 = (x1 + x2) / 2;
+        let my1y2 = (y1 + y2) / 2;
+        let mx2x3 = (x2 + x3) / 2;
+        let my2y3 = (y2 + y3) / 2;
+        let mx1x3 = (x1 + x3) / 2;
+        let my1y3 = (y1 + y3) / 2;
+        const t2 = new Triangulo(mx1x2, my1y2, mx2x3, my2y3, mx1x3, my1y3, 'red');
+
+        // //triangulo para esquerda
+        // let m2x1x2 = (t2.x1 + t1.x2) / 2;
+        // let m2y1y2 = (t2.y1 + t1.y2) / 2;
+        // let m2x2x3 = (t1.x2 + t2.x2) / 2;
+        // let m2y2y3 = (t1.y2 + t2.y2) / 2;
+        // let m2x1x3 = (t2.x1 + t2.x2) / 2;
+        // let m2y1y3 = (t2.y1 + t2.y2) / 2;
+        // const t3 = new Triangulo(m2x1x2, m2y1y2, m2x2x3, m2y2y3, m2x1x3, m2y1y3, 'green');
+
+        function sierpinkshiEsquerda(t1, t2, cor) {
+            let x1 = (t2.x1 + t1.x2) / 2;
+            let y1 = (t2.y1 + t1.y2) / 2;
+            let x2 = (t1.x2 + t2.x2) / 2;
+            let y2 = (t1.y2 + t2.y2) / 2;
+            let x3 = (t2.x1 + t2.x2) / 2;
+            let y3 = (t2.y1 + t2.y2) / 2;
+            return new Triangulo(x1, y1, x2, y2, x3, y3, cor);
+        }
+
+        function sierpinkshiDireita(t1, t2, cor) {
+            let x1 = (t2.x3 + t2.x2) / 2;
+            let y1 = (t2.y3 + t2.y2) / 2;
+            let x2 = (t2.x3 + t1.x3) / 2;
+            let y2 = (t2.y3 + t1.y3) / 2;
+            let x3 = (t2.x2 + t1.x3) / 2;
+            let y3 = (t2.y2 + t1.y3) / 2;
+            return new Triangulo(x1, y1, x2, y2, x3, y3, cor);
+        }
+
+        function sierpinkshiCima(t1, t2, cor) {
+            let x1 = (t1.x1 + t2.x1) / 2;
+            let y1 = (t1.y1 + t2.y1) / 2;
+            let x2 = (t2.x1 + t2.x3) / 2;
+            let y2 = (t2.y1 + t2.y3) / 2;
+            let x3 = (t1.x1 + t2.x3) / 2;
+            let y3 = (t1.y1 + t2.y3) / 2;
+            return new Triangulo(x1, y1, x2, y2, x3, y3, cor);
+        }
+
+
+        const t3 = sierpinkshiEsquerda(t1, t2, 'green')
+        const t4 = sierpinkshiDireita(t1, t2, 'green')
+        const t5 = sierpinkshiCima(t1, t2, 'green')
+
+        // sierpinkshiEsquerda(t1, t3, 'yellow')
+        // sierpinkshiDireita(t1, t4, 'yellow')
+
+    </script>
+</body>
+
+</html>
