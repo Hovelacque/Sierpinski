@@ -1,6 +1,7 @@
 <html>
 
 <body>
+    <button onclick="desenha()">Rodar</button>
     <canvas></canvas>
     <script>
         const canvas = document.querySelector('canvas')
@@ -17,6 +18,10 @@
             return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
         }
 
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
         const COR_AZUL = 'blue'
         const COR_VERDE = 'green'
         const COR_VERMELHO = 'red'
@@ -27,35 +32,39 @@
         let qtd_pontos = 0
         let ponto
 
-        ctx.fillStyle = COR_VERMELHO;
-        ctx.fillRect(X1, Y1, size, size);
-        ctx.fillStyle = COR_AZUL;
-        ctx.fillRect(X2, Y2, size, size);
-        ctx.fillStyle = COR_VERDE;
-        ctx.fillRect(X3, Y3, size, size);
-        ctx.fillStyle = COR_AMARELO;
-        ctx.fillRect(ix, iy, size, size);
-        while (qtd_pontos < 65500) {
-            ponto = getRandomInt(1, 4)
-            if (ponto == 1) {
-                ix = (X1 + ix) / 2
-                iy = (Y1 + iy) / 2
-                ctx.fillStyle = COR_VERMELHO;
-                ctx.fillRect(ix, iy, size, size);
+        async function desenha() {
+            ctx.fillStyle = COR_VERMELHO;
+            ctx.fillRect(X1, Y1, size, size);
+            ctx.fillStyle = COR_AZUL;
+            ctx.fillRect(X2, Y2, size, size);
+            ctx.fillStyle = COR_VERDE;
+            ctx.fillRect(X3, Y3, size, size);
+            ctx.fillStyle = COR_AMARELO;
+            ctx.fillRect(ix, iy, size, size);
+            while (qtd_pontos < 65500) {
+                ponto = getRandomInt(1, 4)
+                if (ponto == 1) {
+                    ix = (X1 + ix) / 2
+                    iy = (Y1 + iy) / 2
+                    ctx.fillStyle = COR_VERMELHO;
+                    ctx.fillRect(ix, iy, size, size);
+                }
+                else if (ponto == 2) {
+                    ix = (X2 + ix) / 2
+                    iy = (Y2 + iy) / 2
+                    ctx.fillStyle = COR_AZUL;
+                    ctx.fillRect(ix, iy, size, size);
+                }
+                else {
+                    ix = (X3 + ix) / 2
+                    iy = (Y3 + iy) / 2
+                    ctx.fillStyle = COR_VERDE;
+                    ctx.fillRect(ix, iy, size, size);
+                }
+                qtd_pontos = qtd_pontos + 1
+
+                await sleep(1)
             }
-            else if (ponto == 2) {
-                ix = (X2 + ix) / 2
-                iy = (Y2 + iy) / 2
-                ctx.fillStyle = COR_AZUL;
-                ctx.fillRect(ix, iy, size, size);
-            }
-            else {
-                ix = (X3 + ix) / 2
-                iy = (Y3 + iy) / 2
-                ctx.fillStyle = COR_VERDE;
-                ctx.fillRect(ix, iy, size, size);
-            }
-            qtd_pontos = qtd_pontos + 1
         }
 
     </script>
