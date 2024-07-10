@@ -1,0 +1,64 @@
+<html>
+
+<body>
+    <canvas></canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        const height = 768, width = 1366, size = 1;
+
+        canvas.height = height;
+        canvas.width = width;
+
+        function getRandomInt(min, max) {
+            const minCeiled = Math.ceil(min);
+            const maxFloored = Math.floor(max);
+            return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
+        }
+
+        const COR_AZUL = 'blue'
+        const COR_VERDE = 'green'
+        const COR_VERMELHO = 'red'
+        const COR_AMARELO = 'yellow'
+
+        const X1 = 683, Y1 = 50, X2 = 1024, Y2 = 700, X3 = 341, Y3 = 700
+        let px, py, ix = width / 2, iy = height / 2
+        let qtd_pontos = 0
+        let ponto
+
+        ctx.fillStyle = COR_VERMELHO;
+        ctx.fillRect(X1, Y1, size, size);
+        ctx.fillStyle = COR_AZUL;
+        ctx.fillRect(X2, Y2, size, size);
+        ctx.fillStyle = COR_VERDE;
+        ctx.fillRect(X3, Y3, size, size);
+        ctx.fillStyle = COR_AMARELO;
+        ctx.fillRect(ix, iy, size, size);
+        while (qtd_pontos < 65500) {
+            ponto = getRandomInt(1, 4)
+            if (ponto == 1) {
+                ix = (X1 + ix) / 2
+                iy = (Y1 + iy) / 2
+                ctx.fillStyle = COR_VERMELHO;
+                ctx.fillRect(ix, iy, size, size);
+            }
+            else if (ponto == 2) {
+                ix = (X2 + ix) / 2
+                iy = (Y2 + iy) / 2
+                ctx.fillStyle = COR_AZUL;
+                ctx.fillRect(ix, iy, size, size);
+            }
+            else {
+                ix = (X3 + ix) / 2
+                iy = (Y3 + iy) / 2
+                ctx.fillStyle = COR_VERDE;
+                ctx.fillRect(ix, iy, size, size);
+            }
+            qtd_pontos = qtd_pontos + 1
+        }
+
+    </script>
+</body>
+
+</html>
